@@ -1,35 +1,38 @@
 import { nanoid } from 'nanoid';
-// nanoid(); //=> "V1StGXR8_Z5jdHi6B-myT"
-
 import { Component } from 'react';
 import { ContactForm } from './ContactForm';
-import { ContactList } from './ContactList';
 import { Filter } from './Filter';
+import { ContactList } from './ContactList';
 
 export class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 'id-1', name: 'Rosie Simpson', phone: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', phone: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', phone: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', phone: '227-91-26' },
     ],
-    name: '',
-    phone: '',
     filter: '',
   };
 
   addContact = (newContact, newNumber) => {
-    this.setState(prevState => ({
-      contacts: [
-        ...prevState.contacts,
-        {
-          name: newContact,
-          id: nanoid(),
-          phone: newNumber,
-        },
-      ],
-    }));
+    const exists = this.state.contacts.find(
+      contact => contact.name === newContact
+    );
+    if (!exists) {
+      this.setState(prevState => ({
+        contacts: [
+          ...prevState.contacts,
+          {
+            name: newContact,
+            id: nanoid(),
+            phone: newNumber,
+          },
+        ],
+      }));
+    } else {
+      alert(`${newContact} is already in your Phonebook`);
+    }
   };
 
   deleteContact = id => {

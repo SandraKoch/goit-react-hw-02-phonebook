@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { ContactItem } from '../ContactItem';
 
 export class ContactList extends Component {
   render() {
@@ -19,15 +20,10 @@ export class ContactList extends Component {
               item.name.toLowerCase().includes(this.props.filter.toLowerCase())
             )
             .map(item => (
-              <li key={item.id}>
-                {item.name}: {item.phone}
-                <button
-                  type="button"
-                  onClick={() => this.props.deleteItem(item.id)}
-                >
-                  Usuń
-                </button>
-              </li>
+              <ContactItem
+                item={item}
+                deleteItem={id => this.props.deleteItem(id)}
+              />
             ))}
         </ul>
       </div>

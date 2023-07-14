@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
 export class ContactForm extends Component {
+  state = { name: '', phone: '' };
+
   handleNameChange = e => {
     this.setState({ name: e.target.value });
   };
@@ -45,6 +47,7 @@ export class ContactForm extends Component {
             type="tel"
             id="number"
             placeholder="phone number"
+            pattern="(\+[0-9]{2}\s)?[0-9]{3}[\s\-]?[0-9]{3}[\s\-]?[0-9]{3}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={this.handlePhoneChange}
