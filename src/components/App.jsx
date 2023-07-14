@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { ContactList } from './ContactList';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export class App extends Component {
   state = {
@@ -30,8 +31,9 @@ export class App extends Component {
           },
         ],
       }));
+      Notify.success(`${newContact} has been added to your Phonebook`);
     } else {
-      alert(`${newContact} is already in your Phonebook`);
+      Notify.warning(`${newContact} is already in your Phonebook`);
     }
   };
 
