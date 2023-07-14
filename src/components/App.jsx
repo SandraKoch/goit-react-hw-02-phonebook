@@ -2,20 +2,31 @@ import { nanoid } from 'nanoid';
 // nanoid(); //=> "V1StGXR8_Z5jdHi6B-myT"
 
 import { Component } from 'react';
+import { ContactForm } from './ContactForm';
+import { ContactList } from './ContactList';
+import { Filter } from './Filter';
 
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     name: '',
+    phone: '',
+    filter: '',
   };
 
-  addContact = newContact => {
+  addContact = (newContact, newNumber) => {
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
         {
           name: newContact,
           id: nanoid(),
+          phone: newNumber,
         },
       ],
     }));
@@ -24,6 +35,12 @@ export class App extends Component {
   deleteContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => id !== contact.id),
+    }));
+  };
+
+  filterContacts = newFilter => {
+    this.setState(() => ({
+      filter: newFilter,
     }));
   };
 
@@ -41,67 +58,15 @@ export class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm onAdd={name => this.addContact(name)} />
+        <ContactForm onAdd={(name, phone) => this.addContact(name, phone)} />
 
         <h2>Contacts</h2>
-        {/* <Filter /> */}
+        <Filter onFilter={filter => this.filterContacts(filter)} />
         <ContactList
           contactItems={this.state.contacts}
+          filter={this.state.filter}
           deleteItem={id => this.deleteContact(id)}
         />
-      </div>
-    );
-  }
-}
-
-class ContactForm extends Component {
-  handleChange = e => {
-    this.setState({ name: e.target.value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    // console.log(this.state);
-    this.props.onAdd(this.state.name);
-  };
-
-  render() {
-    // console.log('log', this.state.name, this.state.contacts);
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          name
-          <input
-            type="text"
-            name="name"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            onChange={this.handleChange}
-          />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
-    );
-  }
-}
-
-class ContactList extends Component {
-  render() {
-    return (
-      <div>
-        <ul>
-          {this.props.contactItems.map(item => (
-            <li key={item.id}>
-              {item.name}
-              <button
-                type="button"
-                onClick={() => this.props.deleteItem(item.id)}
-              >
-                Usuń
-              </button>
-            </li>
-          ))}
-        </ul>
       </div>
     );
   }
