@@ -41,7 +41,8 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => id !== contact.id),
     }));
-    // Notify.failure()
+    const contact = this.state.contacts.find(item => item.id === id);
+    Notify.failure(`${contact.name} has been deleted`);
   };
 
   filterContacts = newFilter => {
