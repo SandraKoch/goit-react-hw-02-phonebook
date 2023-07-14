@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import css from './Filter.module.css';
 
 export class Filter extends Component {
   handleFilterChange = e => {
@@ -8,6 +9,13 @@ export class Filter extends Component {
 
   render() {
     // console.log('test');
-    return <input type="text" onChange={this.handleFilterChange} />;
+    return (
+      <input
+        className={css.input}
+        type="text"
+        onChange={this.handleFilterChange}
+        placeholder="Search contacts by name..."
+      />
+    );
   }
 }

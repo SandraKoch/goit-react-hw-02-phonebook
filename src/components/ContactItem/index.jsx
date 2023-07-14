@@ -1,12 +1,17 @@
 import { Component } from 'react';
+import css from './ContactItem.module.css';
 
 export class ContactItem extends Component {
   render() {
     const { item } = this.props;
     return (
-      <li key={item.id}>
+      <li key={item.id} className={css.contactItem}>
         {item.name}: {item.phone}
-        <button type="button" onClick={() => this.props.deleteItem(item.id)}>
+        <button
+          className={css.deleteBtn}
+          type="button"
+          onClick={() => this.props.deleteItem(item.id)}
+        >
           Usuń
         </button>
       </li>

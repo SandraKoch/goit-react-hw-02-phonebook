@@ -41,6 +41,7 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => id !== contact.id),
     }));
+    // Notify.failure()
   };
 
   filterContacts = newFilter => {
@@ -53,11 +54,9 @@ export class App extends Component {
     return (
       <div
         style={{
-          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
           fontSize: 40,
           color: '#010101',
         }}

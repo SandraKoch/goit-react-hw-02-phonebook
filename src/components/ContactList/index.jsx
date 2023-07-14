@@ -1,20 +1,12 @@
 import { Component } from 'react';
 import { ContactItem } from '../ContactItem';
+import css from './ContactList.module.css';
 
 export class ContactList extends Component {
   render() {
     return (
       <div>
-        <ul
-          style={{
-            display: 'flex',
-            padding: '30px',
-            border: '3px solid black',
-            margin: '10px',
-            borderRadius: '6px',
-            width: '100%',
-          }}
-        >
+        <ul className={css.contactList}>
           {this.props.contactItems
             .filter(item =>
               item.name.toLowerCase().includes(this.props.filter.toLowerCase())
